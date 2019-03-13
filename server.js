@@ -30,5 +30,7 @@ app.listen(config.port, (err) => {
 })
 
 
+//routes
 const authRoutes = require('./routes/auth')
+
 app.use('/api/accounts', authRoutes)

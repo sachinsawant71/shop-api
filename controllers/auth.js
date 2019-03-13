@@ -3,7 +3,38 @@ const User = require('../models/user')
 const config = require('../config')
 
 exports.login = (req, res) => {
+    User.findOne({
+        email: req.body.email
+    }, (err, user) => {
+        if (err) return res.json(err)
 
+        if (!user) {
+            return res.json({
+                success: false,
+                message: 'Authentication failed. User not found.'
+            })
+        } else if (user) {
+            const validPassword = user.comparePassword(req.body.password)
+            if (!validPassword) {
+                return res.json({
+                    success: false,
+                    message: 'Authentication failed. Wrong password.'
+                })
+            } else {
+                const token = jwt.sign({
+                    user: user
+                }, config.secret, {
+                    expiresIn: '1d'
+                })
+
+                return res.json({
+                    success: true,
+                    message: 'Successfully logged in.',
+                    token: token
+                })
+            }
+        }
+    })
 }
 
 exports.register = (req, res) => {
