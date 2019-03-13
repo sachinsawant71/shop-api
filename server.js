@@ -28,3 +28,7 @@ mongoose.set('useCreateIndex', true);
 app.listen(config.port, (err) => {
     console.log('Listening on port ' + config.port);
 })
+
+
+const authRoutes = require('./routes/auth')
+app.use('/api/accounts', authRoutes)
