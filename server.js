@@ -32,5 +32,7 @@ app.listen(config.port, (err) => {
 
 //routes
 const authRoutes = require('./routes/auth')
+const profileRoutes = require('./routes/profile')
 
 app.use('/api/accounts', authRoutes)
+app.use('/api/profile', profileRoutes)
