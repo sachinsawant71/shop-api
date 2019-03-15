@@ -33,6 +33,8 @@ app.listen(config.port, (err) => {
 //routes
 const authRoutes = require('./routes/auth')
 const profileRoutes = require('./routes/profile')
+const addressRoutes = require('./routes/address')
 
 app.use('/api/accounts', authRoutes)
 app.use('/api/profile', profileRoutes)
+app.use('/api/address', addressRoutes)

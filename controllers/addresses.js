@@ -8,7 +8,7 @@ exports.get = (req, res, next) => {
 
         return res.status(200).json({
             success: true,
-            user: user
+            address: user.address
         })
     })
 }
@@ -19,13 +19,17 @@ exports.update = (req, res, next) => {
     }, (err, user) => {
         if (err) return next(err)
 
-        user.set(req.body)
+        address = user.address
+        if (req.body.addr1) address.addr1 = req.body.addr1
+        if (req.body.addr2) address.addr2 = req.body.addr2
+        if (req.body.city) address.city = req.body.city
+        if (req.body.country) address.country = req.body.country
+        if (req.body.postalCode) address.postalCode = req.body.postalCode
         user.save()
 
         return res.status(201).json({
             success: true,
-            message: 'Profile edited successfully.'
+            message: 'Address edited successfully.'
         })
     })
-
 }
