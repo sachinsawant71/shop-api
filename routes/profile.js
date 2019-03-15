@@ -5,6 +5,6 @@ const Profiles = require('../controllers/profiles')
 const AuthMiddleware = require('../middlewares/auth')
 
 router.get('', AuthMiddleware, Profiles.get)
-router.post('', AuthMiddleware, Profiles.post)
+router.put('', AuthMiddleware, Profiles.put)
 
 module.exports = router
