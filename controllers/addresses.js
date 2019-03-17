@@ -24,6 +24,7 @@ exports.update = (req, res, next) => {
         if (req.body.addr2) address.addr2 = req.body.addr2
         if (req.body.city) address.city = req.body.city
         if (req.body.country) address.country = req.body.country
+        if (req.body.state) address.state = req.body.state
         if (req.body.postalCode) address.postalCode = req.body.postalCode
         user.save()
 

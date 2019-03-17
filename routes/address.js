@@ -5,6 +5,6 @@ const Address = require('../controllers/addresses')
 const AuthMiddleware = require('../middlewares/auth')
 
 router.get('', AuthMiddleware, Address.get)
-router.put('', AuthMiddleware, Address.update)
+router.post('', AuthMiddleware, Address.update)
 
 module.exports = router

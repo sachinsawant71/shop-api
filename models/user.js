@@ -17,12 +17,30 @@ const userSchema = new Schema({
         default: false
     },
     address: {
-        addr1: String,
-        addr2: String,
-        city: String,
-        state: String,
-        country: String,
-        postalCode: String
+        addr1: {
+            type: String,
+            default: ''
+        },
+        addr2: {
+            type: String,
+            default: ''
+        },
+        city: {
+            type: String,
+            default: ''
+        },
+        state: {
+            type: String,
+            default: ''
+        },
+        country: {
+            type: String,
+            default: ''
+        },
+        postalCode: {
+            type: String,
+            default: ''
+        }
     },
     created: {
         type: Date,
