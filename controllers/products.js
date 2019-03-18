@@ -8,7 +8,25 @@ cloudinary.config({
 });
 
 exports.getSellerProducts = (req, res) => {
+    Product.find({
+            user: req.decoded.user._id
+        })
+        .populate('user')
+        .populate('category')
+        .exec((err, products) => {
+            if (products) {
+                return res.status(200).json({
+                    success: true,
+                    products
+                })
+            }
 
+            return res.status(422).json({
+                success: false,
+                err,
+                message: 'No products found.'
+            })
+        })
 }
 
 exports.post = (req, res) => {
