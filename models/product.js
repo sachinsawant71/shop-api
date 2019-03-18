@@ -10,7 +10,14 @@ const productSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    image: String,
+    imageId: {
+        type: String,
+        default: 'sample.jpg'
+    },
+    imageVersion: {
+        type: String,
+        default: '1552902034'
+    },
     title: String,
     description: String,
     price: Number,
