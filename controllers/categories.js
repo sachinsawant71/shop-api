@@ -21,3 +21,16 @@ exports.post = (req, res) => {
         message: "Category successfully added."
     })
 }
+
+exports.getSingle = (req, res) => {
+    Category.findOne({
+        _id: req.params.id
+    }, (err, category) => {
+        if (err) throw err
+
+        return res.status(200).json({
+            success: true,
+            category
+        })
+    })
+}
