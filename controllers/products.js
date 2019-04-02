@@ -65,3 +65,24 @@ exports.post = (req, res) => {
         message: 'Product successfully created.'
     })
 }
+
+exports.getSingle = (req, res) => {
+    Product.findById({
+            _id: req.params.id
+        })
+        .populate('category')
+        .populate('user')
+        .exec((err, product) => {
+            if (err) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Product not found.'
+                })
+            } else {
+                return res.status(200).json({
+                    success: true,
+                    product: product
+                })
+            }
+        })
+}
