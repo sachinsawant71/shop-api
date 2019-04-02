@@ -6,7 +6,7 @@ exports.post = (req, res) => {
     async.waterfall([
         function (callback) {
             Product.findOne({
-                _id: req.body.productId
+                _id: req.body.product
             }, (err, product) => {
                 if (product) {
                     callback(err, product)

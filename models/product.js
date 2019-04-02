@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+const deepPopulate = require('mongoose-deep-populate')(mongoose)
+
 const productSchema = new Schema({
     category: {
         type: Schema.Types.ObjectId,
@@ -30,5 +32,7 @@ const productSchema = new Schema({
         default: Date.now()
     }
 })
+
+productSchema.plugin(deepPopulate)
 
 module.exports = mongoose.model('Product', productSchema)

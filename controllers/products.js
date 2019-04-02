@@ -73,6 +73,8 @@ exports.getSingle = (req, res) => {
         })
         .populate('category')
         .populate('user')
+        .populate('reviews')
+        .deepPopulate('reviews.user')
         .exec((err, product) => {
             if (err) {
                 return res.status(404).json({
