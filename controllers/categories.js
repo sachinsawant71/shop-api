@@ -1,5 +1,6 @@
 const Category = require('../models/category')
 const Product = require('../models/product')
+const async = require('async')
 
 exports.get = (req, res) => {
     Category.find({}, (err, categories) => {
@@ -25,21 +26,45 @@ exports.post = (req, res) => {
 
 exports.getSingle = (req, res) => {
     const perPage = 10
-    Product.find({
-            category: req.params.id
-        })
-        .populate('category')
-        .exec((err, products) => {
+    const page = req.query.page
+
+    async.waterfall([
+        function (callback) {
             Product.count({
                 category: req.params.id
-            }, (err, totalProducts) => {
-                res.status(200).json({
+            }, (err, count) => {
+                const totalProducts = count
+                callback(err, totalProducts)
+            })
+        },
+        function (totalProducts, callback) {
+            Product.find({
+                    category: req.params.id
+                })
+                .skip(perPage * page)
+                .limit(perPage)
+                .populate('category')
+                .populate('user')
+                .exec((err, products) => {
+                    if (err) return err
+                    callback(err, products, totalProducts)
+                })
+        },
+        function (products, totalProducts, callback) {
+            Category.findOne({
+                _id: req.params.id
+            }, (err, category) => {
+                if (err) return err
+
+                return res.status(200).json({
                     success: true,
                     products: products,
-                    category: products[0].category.name,
+                    category: category.name,
                     totalProducts: totalProducts,
                     pages: Math.ceil(totalProducts / perPage)
                 })
             })
-        })
+        }
+    ])
+
 }
