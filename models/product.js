@@ -31,7 +31,30 @@ const productSchema = new Schema({
         type: Date,
         default: Date.now()
     }
+}, {
+    toObject: {
+        virtuals: true
+    },
+    toJSON: {
+        virtuals: true
+    }
 })
+
+productSchema
+    .virtual('averageRating')
+    .get(function () {
+        let rating = 0
+        if (this.reviews.length == 0) {
+            rating = 0
+        } else {
+            this.reviews.map((review) => {
+                rating += review.rating
+            })
+            rating = rating / this.reviews.length
+        }
+
+        return rating
+    })
 
 productSchema.plugin(deepPopulate)
 
