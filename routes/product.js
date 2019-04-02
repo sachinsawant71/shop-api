@@ -6,9 +6,9 @@ const Product = require('../models/product')
 const Products = require('../controllers/products')
 const AuthMiddleware = require('../middlewares/auth')
 
-router.get('', AuthMiddleware, Products.getAll)
+router.get('', Products.getAll)
 router.get('/seller', AuthMiddleware, Products.getSellerProducts)
-router.get('/:id', AuthMiddleware, Products.getSingle)
+router.get('/:id', Products.getSingle)
 router.post('', AuthMiddleware, Products.post)
 
 router.get('/faker/test', (req, res, next) => {
