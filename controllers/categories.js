@@ -30,7 +30,7 @@ exports.getSingle = (req, res) => {
 
     async.waterfall([
         function (callback) {
-            Product.count({
+            Product.countDocuments({
                 category: req.params.id
             }, (err, count) => {
                 const totalProducts = count
