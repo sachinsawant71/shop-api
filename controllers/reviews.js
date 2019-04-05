@@ -3,17 +3,17 @@ const Review = require('../models/review')
 const async = require('async')
 
 exports.post = (req, res) => {
-    async.waterfall([
-        function (callback) {
-            Product.findOne({
-                _id: req.body.product
-            }, (err, product) => {
-                if (product) {
-                    callback(err, product)
-                }
+    Product.findOne({
+        _id: req.body.productId
+    }, (err, product) => {
+        if (err) {
+            return res.status(422).json({
+                success: false,
+                message: 'Error',
+                error: err
             })
-        },
-        function (product) {
+
+        } else {
             const review = new Review()
             review.user = req.decoded.user._id
             if (req.body.title) review.title = req.body.title
@@ -30,5 +30,5 @@ exports.post = (req, res) => {
                 message: 'Reviewed successfully.'
             })
         }
-    ])
+    })
 }

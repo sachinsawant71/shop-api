@@ -41,24 +41,24 @@ const productSchema = new Schema({
     }
 })
 
-// productSchema
-//     .virtual('averageRating')
-//     .get(function () {
-//         let rating = 0
-//         if (this.reviews.length == 0) {
-//             rating = 0
-//         } else {
-//             this.reviews.map((review) => {
-//                 rating += review.rating
-//             })
-//             rating = rating / this.reviews.length
-//         }
+productSchema
+    .virtual('averageRating')
+    .get(function () {
+        let rating = 0
+        if (this.reviews.length == 0) {
+            rating = 0
+        } else {
+            this.reviews.map((review) => {
+                rating += review.rating
+            })
+            rating = rating / this.reviews.length
+        }
 
-//         return rating
-//     })
+        return rating
+    })
 
 productSchema.plugin(deepPopulate)
-productSchema.plugin(algolia, {
+/*productSchema.plugin(algolia, {
     appId: '0NMEYF15P1',
     apiKey: '712fb0c14159120f0ecba8c1a60bf686',
     indexName: 'shop',
@@ -92,10 +92,10 @@ productSchema.plugin(algolia, {
     },
     debug: true
 })
-
+*/
 let Model = mongoose.model('Product', productSchema)
-Model.SyncToAlgolia()
+/*Model.SyncToAlgolia()
 Model.SetAlgoliaSettings({
     searchableAttributes: ['title']
-})
+})*/
 module.exports = Model

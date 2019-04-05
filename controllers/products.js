@@ -57,14 +57,14 @@ exports.post = (req, res) => {
                 message: 'Product successfully created.'
             })
         })
+    } else {
+        product.save()
+
+        return res.status(201).json({
+            success: true,
+            message: 'Product successfully created.'
+        })
     }
-
-    product.save()
-
-    return res.status(201).json({
-        success: true,
-        message: 'Product successfully created.'
-    })
 }
 
 exports.getSingle = (req, res) => {
